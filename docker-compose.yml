@@ -1,0 +1,45 @@
+version: '3.6'
+services:
+
+  api:
+    build: docker/nodejs_api
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      MYSQL_PASSWORD: ${DOCKER_PASSWORD}
+      MYSQL_USER: ${DOCKER_USERNAME}
+      MYSQL_HOST: ${DATABASE_HOST}
+      MYSQL_DB: ${DOCKER_DATABASE}
+      JWT_KEY: ${JWT_KEY}
+      REDIS_PASS: ${REDIS_PASS}
+      EXPIRE_TOKEN_SEC: ${EXPIRE_TOKEN_SEC}
+      API_PORT: ${API_PORT}
+    ports:
+      - 80:${API_PORT}
+    volumes:
+      - "./api/:/www"
+
+  db:
+    image: mysql/mysql-server:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - "watch_database:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_HOST=%"
+      - "MYSQL_ROOT_PASSWORD=${DOCKER_PASSWORD}"
+      - "MYSQL_DATABASE=${DOCKER_DATABASE}"
+      - "MYSQL_USER=${DOCKER_USERNAME}"
+      - "MYSQL_PASSWORD=${DOCKER_PASSWORD}"
+    command: [
+      # "--general_log=1",
+      # "--general_log_file=/var/lib/mysql/general_log.log",
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_general_ci",
+      "--default-storage-engine=innodb",
+      "--innodb-file-per-table",
+      "--explicit_defaults_for_timestamp=1",
+      "--default-time-zone=+00:00"
+    ]
+
+volumes:
+  watch_database:
