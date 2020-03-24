@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon app/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
+    "faker": "^4.1.0",
     "nodemon": "^2.0.2"
   }
 }

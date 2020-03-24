@@ -33,11 +33,11 @@ migrating: # reRun all migrations command line
 unmigrating: # reRun all migrations command line
 	@docker-compose -f ${DOCKER_CONFIG} exec  -w /www/ -T api npx sequelize-cli db:migrate:undo:all
 
-seedind: # Seedding fake data command line
+seeding: # Seedding fake data command line
 	@docker-compose -f ${DOCKER_CONFIG} exec  -w /www/ -T api npx sequelize-cli db:seed:all
 
 # todo add fresh JWT_KEY, add volume to .env
-fresh: unmigrating migrating seedind # ReFresh DB and Seedding fake data command line
+fresh: unmigrating migrating seeding # ReFresh DB and Seedding fake data command line
 	@echo 'Undo all migrations, run all migrations, seeding fake data'
 
 connect_db: # database command line
@@ -54,3 +54,6 @@ create_model: # create model name=[modelName] and Migration
 
 create_seeder: # create model name=[seederName]
 	@docker-compose -f ${DOCKER_CONFIG} exec -w /www/ api npx sequelize-cli seed:generate --name $(name)
+
+sequelize_init: # init sequelize cli
+	@docker-compose -f ${DOCKER_CONFIG} exec -w /www/ api npx sequelize-cli init
