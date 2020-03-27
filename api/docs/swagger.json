@@ -1,0 +1,194 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.0.0",
+        "title": "Node App",
+        "description": "Node App"
+    },
+    "servers":[
+        {
+            "url": "http://localhost/api"
+        }
+    ],
+    "tags": [
+        {
+            "name":"Users",
+            "description": "Use of users routes"
+        }
+    ],
+    "paths": {
+        "/users/create": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create new user",
+                "description": "This route allows you to create new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User/create"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/delete": {
+            "delete": {
+                "tags": ["Users"],
+                "summary": "Delete user",
+                "description": "This route allows you to delete existing user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User/delete"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/all": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get full users list",
+                "description": "This route allows you to get the entire list of registered users",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/id/{user_id}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get user by ID",
+                "description": "This route allows you to get by ID the registered user",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/status/{status}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get user(s) by status",
+                "description": "This route allows you to get the entire list of registered users by activeStatus",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "description": "1 - active users, 0 - banned users",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/setstatus": {
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Set user status",
+                "description": "This route allows you to set user status by user ID",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User/setstatus"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "create": {
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "example": "Dow"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "johnDowUser@test.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "123456789"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "example": "19"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "user"
+                    }
+                }
+            },
+            "delete": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            },
+            "setstatus": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "activeStatus": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                } 
+            }
+        }
+    }
+}

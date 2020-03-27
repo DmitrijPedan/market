@@ -55,14 +55,14 @@ exports.deleteUser = async (req,res) => {
     try {
         const user = await models.User.findOne({
             where: {
-                email: req.body.email,
+                id: req.body.id,
             }
         });
         if(user) {
             await user.destroy();
             res.json({status: "success", data: user});
         } else {
-            res.json({status: "fail", data: null});
+            res.json({status: "fail", data: "user not found"});
         } 
     } catch (e) {
         console.log(e);
@@ -75,11 +75,11 @@ exports.deleteUser = async (req,res) => {
 exports.setUserStatus = async (req,res) => {  
     try {
         const user = await models.User.findOne({
-            where: {email: req.body.email},
+            where: {id: req.body.id},
         });
         if(user) {
             await user.update(
-                {activeStatus: req.body.status},
+                {activeStatus: req.body.activeStatus},
             );
             res.json({status: "success", data: user});
         } else {
@@ -94,14 +94,15 @@ exports.setUserStatus = async (req,res) => {
 };
 
 exports.allUsersStatus = async (req,res) => {
+    console.log(req.params);
     try {
         let users = await models.User.scope('hidePersonalData').findAll({
-            where: {activeStatus: req.body.status},
+            where: {activeStatus: req.params.status},
         });
         if (users.length > 0) {
             res.json({status: "success", results:users.length, data: users});
         } else {
-            res.json({status: "fail", data: null});
+            res.json({status: "fail", data: "users not found"});
         }
     } catch (e) {
         console.log(e);
