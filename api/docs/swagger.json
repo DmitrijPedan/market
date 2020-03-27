@@ -2,8 +2,8 @@
     "openapi": "3.0.1",
     "info": {
         "version": "1.0.0",
-        "title": "Node App",
-        "description": "Node App"
+        "title": "Tasks Manager",
+        "description": "Tasks manager for you"
     },
     "servers":[
         {

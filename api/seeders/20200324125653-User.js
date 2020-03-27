@@ -1,5 +1,4 @@
 'use strict';
-
 const faker = require('faker');
 
 const users = [...new Array(15)].map(() => {
