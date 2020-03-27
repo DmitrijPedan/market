@@ -4,9 +4,9 @@ exports.allUsers = async (req,res) => {
     try {
         let users = await models.User.scope('hidePersonalData').findAll();
         if (users) {
-            res.json({data: users, status: "success"});
+            res.json({status: "success", results:users.length, data: users});
         } else {
-            res.json({data: null, status: "fail"});
+            res.json({status: "fail", data: null});
         }
     } catch (e) {
         console.log(e);
@@ -20,9 +20,9 @@ exports.getUser = async (req,res) => {
     try {
         const user = await models.User.scope('hidePersonalData').findByPk(req.params.user_id);
         if (user) {
-            res.json({data: user, status: "success"});
+            res.json({status: "success", data: user});
         } else {
-            res.json({data: null, status: "fail"});
+            res.json({status: "fail", data: null});
         }
     } catch (e) {
         console.log(e);
@@ -42,7 +42,7 @@ exports.createUser = async (req,res) => {
             age: req.body.age,
             role: req.body.role || 'user'
         });
-        res.json({data: user, status: "success"});
+        res.json({status: "success", data: user});
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -60,9 +60,9 @@ exports.deleteUser = async (req,res) => {
         });
         if(user) {
             await user.destroy();
-            res.json({data: user, status: "success"});
+            res.json({status: "success", data: user});
         } else {
-            res.json({data: null, status: "fail"});
+            res.json({status: "fail", data: null});
         } 
     } catch (e) {
         console.log(e);
@@ -81,9 +81,9 @@ exports.setUserStatus = async (req,res) => {
             await user.update(
                 {activeStatus: req.body.status},
             );
-            res.json({data: user, status: "success"});
+            res.json({status: "success", data: user});
         } else {
-            res.json({data: null, status: "fail"});
+            res.json({status: "fail", data: null});
         } 
     } catch (e) {
         console.log(e);
@@ -99,9 +99,9 @@ exports.allUsersStatus = async (req,res) => {
             where: {activeStatus: req.body.status},
         });
         if (users.length > 0) {
-            res.json({data: users, status: "success"});
+            res.json({status: "success", results:users.length, data: users});
         } else {
-            res.json({data: null, status: "fail"});
+            res.json({status: "fail", data: null});
         }
     } catch (e) {
         console.log(e);
