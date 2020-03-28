@@ -22,7 +22,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "watch_database:/var/lib/mysql"
+      - "tasks_database:/var/lib/mysql"
     environment:
       - "MYSQL_ROOT_HOST=%"
       - "MYSQL_ROOT_PASSWORD=${DOCKER_PASSWORD}"
@@ -41,4 +41,4 @@ services:
     ]
 
 volumes:
-  watch_database:
+  tasks_database:

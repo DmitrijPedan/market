@@ -8,21 +8,26 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userID: {
-        type: Sequelize.INTEGER, 
+      userid: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       type: {
+        allowNull: false,
         type: Sequelize.ENUM, 
         values: ['meet', 'call', 'task']
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING, 
       },
       priority: {
         type: Sequelize.ENUM, 
-        values: ['low', 'medium', 'hight']
+        values: ['low', 'medium', 'hight'],
+        defaultValue: 'medium',
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING, 
       },
       done: {

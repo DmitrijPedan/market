@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
 	const Task = sequelize.define('Task', {
-		userID: DataTypes.INTEGER,
+		userid: DataTypes.INTEGER,
 		type: DataTypes.ENUM(['meet', 'call', 'task']),
 		name: DataTypes.STRING,
 		priority: DataTypes.ENUM(['low', 'medium', 'hight']),
